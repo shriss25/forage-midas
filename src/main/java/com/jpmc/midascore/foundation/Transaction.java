@@ -8,8 +8,7 @@ public class Transaction {
     private long recipientId;
     private float amount;
 
-    public Transaction() {
-    }
+    public Transaction() {}
 
     public Transaction(long senderId, long recipientId, float amount) {
         this.senderId = senderId;

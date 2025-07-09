@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
-
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
+@EmbeddedKafka(partitions = 1)
 class TaskTwoTests {
     static final Logger logger = LoggerFactory.getLogger(TaskTwoTests.class);
 
@@ -26,16 +25,16 @@ class TaskTwoTests {
         for (String transactionLine : transactionLines) {
             kafkaProducer.send(transactionLine);
         }
-        Thread.sleep(2000);
-        logger.info("----------------------------------------------------------");
-        logger.info("----------------------------------------------------------");
-        logger.info("----------------------------------------------------------");
-        logger.info("use your debugger to watch for incoming transactions");
-        logger.info("kill this test once you find the answer");
+
+        Thread.sleep(2000); // Let the consumer pick up some messages
+
+        logger.info("================== Transaction Watch ==================");
+        logger.info("Use the debugger to monitor the amounts of the first 4 transactions.");
+        logger.info("Stop the test once you’ve gathered the required values.");
+
         while (true) {
             Thread.sleep(20000);
-            logger.info("...");
+            logger.info("... waiting for transaction listener ...");
         }
     }
-
 }
